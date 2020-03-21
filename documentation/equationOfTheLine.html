@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Rasterizacija grafickih primitiva</title>
+	<title>Jednačina prave</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="../assets/img/logo_elfak_header.jpg" type="image/x-icon"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -37,13 +37,17 @@
 					<button class="btn btn-toggle toggle-sidebar">
 						<i class="icon-menu"></i>
 					</button>
-				</div>
+                </div>
+                
 			</div>
 			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="light-blue2">
 				<div class="container-fluid">
-					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-						<li class="nav-item">
-							
+                    
+					<ul class="navbar-nav topbar-nav  align-items-center">
+                        <li class="text-white" style="font-size:larger">
+                            Katedra za računarstvo i informatiku
+                            <br>Predmet: Računarska grafika
+                           
 						</li>
 					</ul>
 				</div>
@@ -67,21 +71,39 @@
 							<h4 class="text-section">Grafičke primitive</h4>
 						</li>
 						<li class="nav-item">
-							<a href="line.html">
-								<span class="letter-icon"><i class='fas fa-pencil-ruler' style='font-size:18px; color:#48abf7;'></i></span>
-								<p>Prava</p>
+							<a href="equationOfTheLine.html">
+								<span class="letter-icon"><i class='fas fa-subscript' style='font-size:18px; color:#48abf7;'></i></span>
+								<p>Jednačina prave</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="#">
-								<span class="letter-icon"><i class='fas fa-drafting-compass' style='font-size:18px; color:#48abf7'></i></span>
-								<p>Krug</p>
+								<span class="letter-icon" style="color:#48abf7"><strong>NA</strong></span>
+								<p>Nagibni algoritam</p>
 							</a>
-						</li>
+                        </li>
+                        <li class="nav-item">
+							<a href="#">
+								<span class="letter-icon" style="color:#48abf7"><strong>IA</strong></span>
+								<p>Inkrementalni algoritam</p>
+							</a>
+                        </li>
+                        <li class="nav-item">
+							<a href="#">
+								<span class="letter-icon" style="color:#48abf7"><strong>BA</strong></span>
+								<p>Bresenham-ov algoritam</p>
+							</a>
+                        </li>
+                        <li class="nav-item">
+							<a href="#">
+								<span class="letter-icon" style="color:#48abf7"><strong>MA</strong></span>
+								<p>Midpoint algoritam</p>
+							</a>
+                        </li>
 						<li class="nav-item">
 							<a href="#">
-								<span class="letter-icon"><i class='fas fa-shapes' style='font-size:18px; color:#48abf7'></i></span>
-								<p>Elipsa</p>
+								<span class="letter-icon"><i class='fas fa-laptop-code' style='font-size:18px; color:#48abf7'></i></span>
+								<p>Simulator</p>
 							</a>
 						</li>
 					</ul>
@@ -92,47 +114,36 @@
 			<div class="content content-documentation">
 				<div class="container-fluid">
 					<div class="card card-documentation">
-						<div class="card-header bg-info-gradient text-white bubble-shadow">
-							<h4> 
-								<div style="display: flex;">
-								<img src="../assets/img/circle-cropped_image01.png" class="mr-4">
-								<div>
-								 <br>
-								  Katedra za računarstvo i informatiku
-								 <br>Tema: Rasterizacija grafičkih primitivi
-								</div>
-								</div>
-							 </h4>
-							
-						</div>
 						<div class="card-body">
-							<h4 class="subcontent-title" id="quickstart"><span>Uvod</span></h4>
-							<p style="font-size:large;">Kao što je poznato, <strong>računarska grafika</strong> predstavlja skup tehnika i sredstava čijom primenom se olakšava obrada grafičkih podataka. 
-							    I dok je <strong>model</strong> konceptualni pojam tj. ideja o nekom predmetu, <strong>slika</strong> je samo jedan od načina da se taj model otelotvori.
-							    Naime, mi krećemo od 3D modela, pri čemu vršeći odgovarajuće transformacije, projekciju, odsecanje kao i <strong>rasterizaciju</strong> dolazimo do slike koja će biti predstavljena korisniku.</p>
-							<h4 class="subcontent-title" id="quickstart"><span>Rasterizacija</span></h4>
-							<h5 id="css">Šta znači pojam rasterizacija? </h5>
-							<p style="font-size:large;"><strong>Rasterizacija</strong> predstavlja proces prevođenja kontinualnog opisa grafičkih primitiva u diskretni opis pomoću piksela pri čemu koordinate piksela moraju biti celi brojevi.
-								 To je proces pretvaranja vektorske slike (matematički definisane slike tačaka i krivina) u rastersku sliku (slika sastavljena od diskretnih piksela).
-								  Jednostavnije rečeno, uzima geometriju scene i pretvara je u piksele za prikaz na ekranu ili za štampanje. 
-							<h5 id="js">Ciljevi rasterizacije </h5>
-							<p style="font-size:large;"><strong>Osnovni ciljevi</strong> rasterizacije su da: 
-								<br> <strong>1.</strong> Niz piksela bude što približniji idealnom (matematičkom obliku);
-								<br> <strong>2.</strong> Niz piksela bude kontinualan;
-								<br> <strong>3.</strong> Sve tačke budu iste osvetljenosti;
-								<br> <strong>4.</strong> Iscrtavanje bude što je moguće brže. 
-							</p>
-							<h5 id="fonts">Problemi kod rasterizacije </h5>
-							<p style="font-size:large;"><strong>Problemi</strong> sa kojima se susrećemo kod rasterizacije su:
-								<br> <strong>1.</strong> Preslikavanja piksela u piksel;
-								<br> <strong>2.</strong> Aliasing – kao posledica rasterizacije tačka se crta na lokaciji koja nije stvarna to dovodi do toga da je linija zupčasta;
-								<br> <strong>3.</strong> Neujednačen intezitet– pikseli po dijagonali su ređi od piksela po horizontali i vertikali;
-								<br> <strong>4.</strong> Ponavljanje pogodaka; 
-								<br> <strong>5.</strong> Problem neravnomernog rastojanja. 
+							<h4 class="subcontent-title" id="quickstart"><span>Jednačina prave</span></h4>
+                            <p style="font-size:large;">Prava linija Euklidove ravni se može definisati kao geometrijsko mesto tačaka čije Dekartove koordinate (ili afine) zadovoljavaju jednačinu: 
+                                <br> <img style="margin-left: 50%;" src="../assets/img/jednacinaPrave.png">
                                 <br>
-								Ukoliko linijski segment sledi uglove od <strong>0 +/- 45</strong> stepeni problema, uglavnom, nema. </p>
-					
-					
+                                <br> gde A, B, C nisu istovremeno svi jednaki nuli. Ukoliko je C = 0 onda prava prolazi kroz koordinatni početak. 
+                                Ovakav oblik jedančine prave je poznat kao opšti oblik. 
+                                <br>
+                                <br>Prava se u pravougaonom koordinatnom sistemu može zadati na sledeće načine: 
+                               
+                                <br> <strong class="ml-5">a)</strong> Eksplicitni oblik: <img class="ml-5" src="../assets/img/eksplicitniOblik01.png">
+                                    <br><img  style="margin-left: 25%;" src="../assets/img/eksplicitniOblik.png">
+                                     <br>Prava y = kx + n preseca Oy osu u tački (0, n), 
+                                     a osu Ox u tački (−n/k, 0), 
+                                     k≠0 i obrazuje sa pozitivnim smerom Ox ose ugao α.
+                                     Broj k=tgα naziva se  koeficijent pravca te prave, a n predstavlja odsečak na Oy osi. 
+                                <br>
+                                <br> <strong class="ml-5">b)</strong> Segmentni oblik: <img class="ml-5" src="../assets/img/segmentniOblik.png">
+                                <br><img  style="margin-left: 25%;" src="../assets/img/segmentniOblik01.png">
+                                <br>Prava x/a + y/b = 1 preseca osu Ox u tački (a,O), a osu Oy u tački (O,b), pa se a naziva odsečak prave na x-osi, a b odsečak  na y-osi.  
+                                <br>Jednačina x = a određuje pravu paralelnu osi Oy, a jednačina y = b određuje pravu paralelnu osi Ox. Jednačina ose Ox je y = 0, a ose Oy je x = 0. 
+                                <br><img  style="margin-left: 25%;" src="../assets/img/segmentniOblik02.png">
+                                <br>
+                                <br> <strong class="ml-5">c)</strong> Normalni oblik: <img class="ml-5" src="../assets/img/normalniOblik.png">
+                                <br> Gde je p rastojanje prave od koordinatnog početka, a β ugao koji obrazuje normala te prave sa pozitivnim smerom ose Ox. 
+                                <br> <img  style="margin-left: 25%;" src="../assets/img/normalniOblik01.png">
+                                
+                              
+                            </p>
+							
 				</div>
 			</div>
 		</div>
