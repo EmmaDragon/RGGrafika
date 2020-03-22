@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Rasterizacija prave</title>
+	<title>Inkrementalni algoritam</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="../../assets/img/logo_elfak_header.jpg" type="image/x-icon"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -36,14 +36,19 @@
 					<button class="btn btn-toggle toggle-sidebar">
 						<i class="icon-menu"></i>
 					</button>
-				</div>
+                </div>
+                
 			</div>
 			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="light-blue2">
 				<div class="container-fluid">
-					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-						<li class="nav-item">
-							
+                    
+					<ul class="navbar-nav topbar-nav  align-items-center">
+                        <li class="text-white" style="font-size:larger">
+                            Katedra za računarstvo i informatiku
+                            <br>Predmet: Računarska grafika
+                           
 						</li>
+						
 					</ul>
 				</div>
 			</nav>
@@ -59,7 +64,6 @@
 								<p>Rasterizacija <br> prave</p>
 							</a>
 						</li>
-						
 						<li class="nav-section">
 							<span class="sidebar-mini-icon">
 								<i class="fa fa-ellipsis-h"></i>
@@ -85,7 +89,7 @@
 							</a>
                         </li>
                         <li class="nav-item">
-							<a href="IA_algorithm.html">
+							<a href="#">
 								<span class="letter-icon" style="color:#48abf7"><strong>IA</strong></span>
 								<p>Inkrementalni algoritam</p>
 							</a>
@@ -116,35 +120,50 @@
 			<div class="content content-documentation">
 				<div class="container-fluid">
 					<div class="card card-documentation">
-						<div class="card-header bg-info-gradient text-white bubble-shadow">
-							<h4> 
-								<div style="display: flex;">
-								<img src="../../assets/img/circle-cropped_image01.png" class="mr-4">
-								<div>
-								 <br>
-								  Katedra za računarstvo i informatiku
-								 <br>Tema: Rasterizacija prave
-								</div>
-								</div>
-							 </h4>
-							
-						</div>
 						<div class="card-body">
-							<h4 class="subcontent-title" id="quickstart"><span>Rasterizacija prave</span></h4>
-                            <p style="font-size:large;">Pored osnovnih ciljeva rasterizacije, čije ispunjenju se teži, rasterizacija prave treba da ispuni i sledeća dva zahteva:
-                                <br> <strong class="ml-5">*</strong> Za linije koeficijenta od -1 do 1, u svakoj koloni treba da bude označen tačno jedan piksel, dok za ostale koeficijente u svakoj vrsti treba da bude označen bar jedan piksel. 
- 
-                                <br> <strong class="ml-5">*</strong> Bez obzira na nagib ili dužinu sve linije treba da budu iste osvetljenosti, ali i sve tačke svake linije treba da budu iste osvetljenosti. 
-                                <br>
-                                <br>U okviru ove teme obradićemo sledeće algoritme rasterizacije linije: 
-                               
-                                <br> <strong class="ml-5">1.</strong> Nagibni algoritam (NA)
-                                <br> <strong class="ml-5">2.</strong> Inkrementalni algoritam (IA) 
-                                <br> <strong class="ml-5">3.</strong> Bresenham-ov algoritam (BA)
-                                <br> <strong class="ml-5">4.</strong> Midpoint algoritam (MA)
-                              
+							<h4 class="subcontent-title" id="quickstart"><span>Nagibni algoritam</span></h4>
+                            <h5 id="js">Matematička osnova</h5>
+							<p style="font-size:large;">
+								Inkrementalni algoritam je poznat još i kao DDA algoritam što je skraćenica za digitalno diferencijalni algoritam. 
+								Predstavlja optimizovanu verziju nagibnog algoritma. 
+								Naime, kod nagibnog algoritma kao jedan od problema se navodi množenje decimalnim vrednostima u pokretnom zarezu.
+								<br><p class="ml-2" style="font-size:large;">Obratimo pažnju na sledeću sliku:</p>
+								<img style="margin-left: 25%;" src="../../assets/img/inkrementalniAlgoritam.png">
+								<p style="font-size:large;">
+								<br>Možemo uočiti da je m = (x2 – x1) / (y2 – y1) pod pretpostavkom da je x1< x2 i da je abs(m) < 1.
+								<br>U i-toj iteraciji imamo: 
+								<br> yi = m*xi + b 
+								<br> yi+1 = m*xi+1 + b = m * (xi + dx) = m*xi + b + m*dx = yi + m*dx 
+								<br> S obzirom da vršimo inkrementiranje koordinata po x-osi => dx = 1. 
+								<img style="margin-left: 50%;" src="../../assets/img/inkrementalniAlgoritam01.png">
+								<br> Ovim smo rešili problem množenja realnim brojevima. 
+									
+							</p>	
                             </p>
+							<h5>Pseudokod</h5>
+							<p style="font-size:large;">U polju ispod je dat pseudokod za rasterizaciju prave korišćenjem inkrementalnog algoritma.
+							</p>
+                            <div class="card" style="overflow: scroll; box-shadow: 5px 10px  #e6e6e6;">
+							<pre style="font-size:16px;">
 							
+						1.dy = y1 -y0;   
+						2.dx = x1 -x0;
+						3.m = dy / dx;
+						4.y = y0;
+						5.for x := x0; x <= x1; x++
+						6.WritePixel(pDC, x,int(y+0.5),value);
+						7.y += m;
+						8.endfor 
+							
+							</pre>
+                            </div>
+                            <h5>Nedostaci</h5>
+                            <p style="font-size:large;">
+                                Nedostaci sa kojima se ovde susrećemo su sledeći:
+                                <br> <strong class="ml-5">1. m</strong> je realna vrednost izračunata sa nekom tačnošću i greška se nagomilava. 
+								<br> <strong class="ml-5">2.</strong> I dalje vršimo <strong>zaokruživanje</strong>.
+								<br> <strong class="ml-5">2.</strong> Promenljive su i dalje <strong>realnog tipa</strong>. 
+                            </p>
 				</div>
 			</div>
 		</div>

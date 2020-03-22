@@ -20,7 +20,7 @@ function drawLine(ev)
         if(algorithm.value == "NA")
            NA_Algorithm(startPointX.valueAsNumber,startPointY.valueAsNumber,endPointX.valueAsNumber,endPointY.valueAsNumber);
             else if(algorithm.value == "IA")
-                    IA_Algorithm();
+                    IA_Algorithm(startPointX.valueAsNumber,startPointY.valueAsNumber,endPointX.valueAsNumber,endPointY.valueAsNumber);
                 else if(algorithm.value == "BA")
                         BA_Algorithm();
                         else if(algorithm.value == "MA")
@@ -83,8 +83,51 @@ function NA_Algorithm(x0,y0,x1,y1)
    
 }
 
-function IA_Algorithm()
+function IA_Algorithm(x0,y0,x1,y1)
 {
+    let dx, dy, m, y, b;
+    let xend;   
+    let x; 
+    dx=x1-x0;
+    dy=y1-y0;
+    if(x0<x1)
+    {
+        x=x0;
+        xend=x1;
+        y=y0;
+    } 
+    else if(x0>x1)
+    {
+        x=x1;
+        xend=x0;
+        y=y1;
+    }
+    else
+    {
+        var ystart,yend;
+        if(y0<y1)
+        {
+            ystart=y0;
+            yend=y1;
+        }
+        else
+        {
+            ystart=y1;
+            yend=y0;
+        }
+        for (ystart; ystart <= yend; ystart++)   
+        {      
+            WritePixel(x0, ystart);   
+        } 
+        return;
+
+    }  
+    m  = dy/dx;  
+    for (x; x<=xend; x++)   
+    {       
+        WritePixel(x, parseInt(y)); 
+        y += m;   
+    } 
     
 }
 
