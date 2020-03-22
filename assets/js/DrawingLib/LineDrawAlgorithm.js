@@ -38,16 +38,47 @@ function validation()
 
 function NA_Algorithm(x0,y0,x1,y1)
 {
-    let dx, dy, m, y, b;   
+    let dx, dy, m, y, b;
+    let xend;   
     let x; 
-    dx = Math.abs(x1 -x0);   
-    dy = Math.abs(y1 -y0);   
+    dx=x1-x0;
+    dy=y1-y0;
+    if(x0<x1)
+    {
+        x=x0;
+        xend=x1;
+    } 
+    else if(x0>x1)
+    {
+        x=x1;
+        xend=x0;
+    }
+    else
+    {
+        var ystart,yend;
+        if(y0<y1)
+        {
+            ystart=y0;
+            yend=y1;
+        }
+        else
+        {
+            ystart=y1;
+            yend=y0;
+        }
+        for (ystart; ystart <= yend; ystart++)   
+        {      
+            WritePixel(x0, ystart);   
+        } 
+        return;
+
+    }  
     m  = dy/dx;  
-    b  = y1 -m*x1;  
-    for (x = x0; x <= x1; x++)   
+    b  = y1 -m*x1;
+    for (xend; xend >= x; xend--)   
     {    
-        y = m*x + b;    
-        WritePixel(x, parseInt(y));   
+        y = m*xend + b;    
+        WritePixel(xend, parseInt(y));   
     } 
    
 }
@@ -70,13 +101,13 @@ function WritePixel(x, y)
 {
     var ctx = myCanvas.getContext("2d");
     ctx.beginPath();
-    ctx.translate(myCanvas.width/2,myCanvas.height/2);
-    ctx.rect(x, -y, 5, 5);
+    ctx.translate(myCanvas.width/2+(x-1),myCanvas.height/2-(y-1));
+    ctx.rect((x-1),-(y-1),2,2);
     ctx.fillStyle = "blue";
     ctx.fill();
     ctx.strokeStyle = 'blue';
     ctx.stroke();
-    ctx.translate(-myCanvas.width/2,-myCanvas.height/2);
+    ctx.translate(-myCanvas.width/2-(x-1),-myCanvas.height/2+(y-1));
 }
 function DrawCoordSystem()
 {
