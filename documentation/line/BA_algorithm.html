@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Rasterizacija prave</title>
+	<title>Bresenham-ov algoritam</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="../../assets/img/logo_elfak_header.jpg" type="image/x-icon"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -36,14 +36,19 @@
 					<button class="btn btn-toggle toggle-sidebar">
 						<i class="icon-menu"></i>
 					</button>
-				</div>
+                </div>
+                
 			</div>
 			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="light-blue2">
 				<div class="container-fluid">
-					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-						<li class="nav-item">
-							
+                    
+					<ul class="navbar-nav topbar-nav  align-items-center">
+                        <li class="text-white" style="font-size:larger">
+                             Katedra za računarstvo i informatiku
+                            <br>Predmet: Računarska grafika
+                           
 						</li>
+						
 					</ul>
 				</div>
 			</nav>
@@ -59,7 +64,6 @@
 								<p>Rasterizacija <br> prave</p>
 							</a>
 						</li>
-						
 						<li class="nav-section">
 							<span class="sidebar-mini-icon">
 								<i class="fa fa-ellipsis-h"></i>
@@ -116,35 +120,79 @@
 			<div class="content content-documentation">
 				<div class="container-fluid">
 					<div class="card card-documentation">
-						<div class="card-header bg-info-gradient text-white bubble-shadow">
-							<h4> 
-								<div style="display: flex;">
-								<img src="../../assets/img/circle-cropped_image01.png" class="mr-4">
-								<div>
-								 <br>
-								  Katedra za računarstvo i informatiku
-								 <br>Tema: Rasterizacija prave
-								</div>
-								</div>
-							 </h4>
-							
-						</div>
 						<div class="card-body">
-							<h4 class="subcontent-title" id="quickstart"><span>Rasterizacija prave</span></h4>
-                            <p style="font-size:large;">Pored osnovnih ciljeva rasterizacije, čije ispunjenju se teži, rasterizacija prave treba da ispuni i sledeća dva zahteva:
-                                <br> <strong class="ml-5">*</strong> Za linije koeficijenta od -1 do 1, u svakoj koloni treba da bude označen tačno jedan piksel, dok za ostale koeficijente u svakoj vrsti treba da bude označen bar jedan piksel. 
- 
-                                <br> <strong class="ml-5">*</strong> Bez obzira na nagib ili dužinu sve linije treba da budu iste osvetljenosti, ali i sve tačke svake linije treba da budu iste osvetljenosti. 
-                                <br>
-                                <br>U okviru ove teme obradićemo sledeće algoritme rasterizacije linije: 
-                               
-                                <br> <strong class="ml-5">1.</strong> Nagibni algoritam (NA)
-                                <br> <strong class="ml-5">2.</strong> Inkrementalni algoritam (IA) 
-                                <br> <strong class="ml-5">3.</strong> Bresenham-ov algoritam (BA)
-                                <br> <strong class="ml-5">4.</strong> Midpoint algoritam (MA)
-                              
-                            </p>
-							
+							<h4 class="subcontent-title" id="quickstart"><span>Bresenham-ov algoritam</span></h4>
+                            <h5 id="js">Matematička osnova</h5>
+                            <p style="font-size:large;">
+								J.Bresenham je 1965. godine analizirao problem generisanja prave linije na digitalnom ploteru. 
+								Tako je razvio algoritam koji se koristi čak i danas.
+								Njegova tehnika se zasniva na odlučivanju da li, u slučaju kada inkrementiramo vrednost koordinate X, treba inkrementirati vrednost koordinate Y ili ne.  
+								Bresenham algoritam može se interpretirati kao malo modifikovani digitalni diferencijalni analizator 
+								(koristeći 0,5 kao prag greške umesto 0, što je potrebno za rasterizaciju poligona koji se ne preklapaju).  
+								<br>Posmatrajmo sledeću sliku:
+								<br> 
+								<img style="margin-left: 25%;" src="../../assets/img/bresenhamovAlgoritam.png">
+								<br>Kao što je poznato, jednačina prave glasi: 
+								<br>y = m*x + b, 
+								<br>gde je m koeficijent pravca, a b predstavlja pomeraj prave u odnosu na x-osu tj.koordinatni početak. 
+								<br>Ukoliko pravu transliramo u koordinatni početak, tada naše b = 0, pa je jednačina prave oblika   
+								<br><p style="margin-left: 30%; font-size:large;" >(1) y = m*x.</p>
+								<p style="font-size:large;">Takođe, važi da je: </p> 
+								<br><p style="margin-left: 30%; font-size:large;">(2) m = dy/dx </p>
+								<br><p style="font-size:large;">Smenom (2) u jednačini (1) dobijamo sledeće: </p>
+								<br><p style="margin-left: 30%; font-size:large;" >(3) y = (dy/dx)*x.</p>
+								<br><p style="font-size:large;">Ukoliko se vratimo na prethodnu sliku:</p>
+								<p style="margin-left: 30%; font-size:large;" >(4) s = (dy/dx)*(r+1) – q </p>
+								<p style="margin-left: 30%; font-size:large;" >(5) t = q + 1 – dy/dx*(r+1)</p>
+								<p style="margin-left: 30%; font-size:large;" >(6) := (4) – (5)</p>
+								<p style="margin-left: 30%; font-size:large;" >(6) s – t =  2*dy/dx*(r+1) – 2*q – 1</p>
+								<p style="margin-left: 30%; font-size:large;" >(7) := (6) * dx </p>
+								<p style="margin-left: 30%; font-size:large;" >(kako bi se dx izgubilo iz imenioca)</p>
+								<p style="margin-left: 30%; font-size:large;" >(7) dx*(s-t) = 2*dy*(r+1) – 2*q - 1 </p>
+								<p style="margin-left: 30%; font-size:large;" >(8) di = 2*(r*dy – q*dx) + 2*dy – dx </p>
+								<p style="margin-left: 30%; font-size:large;" >(9) Uvodimo smenu: </p>
+								<img style="margin-left: 40%;" src="../../assets/img/bresenhamovAlgoritam01.png">
+								<p style="margin-left: 30%; font-size:large;" >(10) di = 2*( xi-1*dy – yi-1*dx) + 2*dy – dx </p>
+								<p style="margin-left: 30%; font-size:large;" >(11) di+1 = 2*( xi*dy – yi*dx) + 2*dy – dx </p>
+								<p style="margin-left: 30%; font-size:large;" >(12) di+1 - di = 2*dx*( xi - xi-1) - 2*dy*( yi - yi-1) </p>
+								<p style="margin-left: 30%; font-size:large;" >(13) S obzirom da vršmo inkrementiranje po x-osi imamo da je ( xi - xi-1) = 1 </p>
+								<p style="margin-left: 30%; font-size:large;" > => di+1 - di = 2*dx - 2*dy*( yi - yi-1).</p>
+								<img style="margin-left: 20%;" src="../../assets/img/bresenhamovAlgoritam02.png">
+							</p>
+							<h5>Pseudokod</h5>
+							<p style="font-size:large;">U polju ispod je dat pseudokod za rasterizaciju prave korišćenjem Bresenham-ovog algoritma.
+							</p>
+                            <div class="card" style="overflow: scroll; box-shadow: 5px 10px  #e6e6e6;">
+							<pre style="font-size:16px;">
+							1.dx = abs(x1 –x0);
+							2.dy = abs(y1 –y0);
+							3.d = 2*dy -dx; 
+							4.incr1 = 2*dy;
+							5.incr2 = 2*(dy-dx); 
+							6.if (x0 > x1)
+							7.x = x1; 
+							8.y = y1;
+							9.xend = x0;
+							10.else
+							11.x = x0;
+							12.y = y0;		
+							13.xend = x1;		
+							14.endif		
+							15.WritePixel(pDC, x, y, value);
+							16.while (x < xend)
+							17.x = x + 1;
+							18.if (d < 0)
+							19.d += incr1;
+							20.else
+ 							21.y = y + 1;
+							22.d += incr2;
+							23.endif
+							24.WritePixel(pDC, x, y, value);
+							25.end while
+							</pre>
+							</div>
+							<p style="font-size:large;">Kao što možemo videti, kompletna računica se svodi na celobrojnu aritmetiku. Koriste se samo sabiranje, oduzimanje i množenje sa 2, što čini ovaj algoritam najbržim do sada</p>
+                            
 				</div>
 			</div>
 		</div>
