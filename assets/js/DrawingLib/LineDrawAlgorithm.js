@@ -22,7 +22,7 @@ function drawLine(ev)
             else if(algorithm.value == "IA")
                     IA_Algorithm(startPointX.valueAsNumber,startPointY.valueAsNumber,endPointX.valueAsNumber,endPointY.valueAsNumber);
                 else if(algorithm.value == "BA")
-                        BA_Algorithm();
+                        BA_Algorithm(startPointX.valueAsNumber,startPointY.valueAsNumber,endPointX.valueAsNumber,endPointY.valueAsNumber);
                         else if(algorithm.value == "MA")
                                 MA_Algorithm();
 
@@ -55,23 +55,7 @@ function NA_Algorithm(x0,y0,x1,y1)
     }
     else
     {
-        var ystart,yend;
-        if(y0<y1)
-        {
-            ystart=y0;
-            yend=y1;
-        }
-        else
-        {
-            ystart=y1;
-            yend=y0;
-        }
-        for (ystart; ystart <= yend; ystart++)   
-        {      
-            WritePixel(x0, ystart);   
-        } 
-        return;
-
+        PlotLineVertical(x0,y0,y1);
     }  
     m  = dy/dx;  
     b  = y1 -m*x1;
@@ -104,23 +88,7 @@ function IA_Algorithm(x0,y0,x1,y1)
     }
     else
     {
-        var ystart,yend;
-        if(y0<y1)
-        {
-            ystart=y0;
-            yend=y1;
-        }
-        else
-        {
-            ystart=y1;
-            yend=y0;
-        }
-        for (ystart; ystart <= yend; ystart++)   
-        {      
-            WritePixel(x0, ystart);   
-        } 
-        return;
-
+        PlotLineVertical(x0,y0,y1); 
     }  
     m  = dy/dx;  
     for (x; x<=xend; x++)   
@@ -131,9 +99,90 @@ function IA_Algorithm(x0,y0,x1,y1)
     
 }
 
-function BA_Algorithm()
+function BA_Algorithm(x0,y0,x1,y1)
 {
+    if(x0==x1)
+        PlotLineVertical(x0,y0,y1);
+    else
+    {
+        if (Math.abs(y1 - y0) < Math.abs(x1 - x0))
+            if (x0 > x1)
+                PlotLineLow(x1, y1, x0, y0);
+            else
+                PlotLineLow(x0, y0, x1, y1);
+        else
+            if (y0 > y1)
+                PlotLineHigh(x1, y1, x0, y0);
+            else
+                PlotLineHigh(x0, y0, x1, y1);  
+    }  
+}
+function PlotLineVertical(x0,y0,y1)
+{
+    let ystart,yend;
+    if(y0<y1)
+    {
+        ystart=y0;
+        yend=y1;
+    }
+    else
+    {
+        ystart=y1;
+        yend=y0;
+    }
+    for (ystart; ystart <= yend; ystart++)   
+    {      
+        WritePixel(x0, ystart);   
+    } 
+
+}
+function PlotLineHigh(x0,y0, x1,y1)
+{
+    let dx = x1 - x0;
+    let dy = y1 - y0;
+    let xi = 1;
+    if (dx < 0)
+    {    
+        xi = -1;
+        dx = -dx;
+    }
+    let D = 2*dx - dy;
+    let x = x0;
+
+    for (let y=y0; y<=y1; y++)
+    {   
+        WritePixel(x, parseInt(y));
+        if (D > 0)
+        {      
+            x = x + xi;
+            D = D - 2*dy;
+        }
+        D = D + 2*dx;
+    }
+}
+function PlotLineLow(x0,y0, x1,y1)
+{   let dx = x1 - x0;
+    let dy = y1 - y0;
+    let yi = 1
+    if (dy < 0)
+    {
+        yi = -1
+        dy = -dy
+    }
     
+    let D = 2*dy - dx
+    let y = y0
+
+    for(x=x0; x<=x1;x++)
+    {
+        WritePixel(x,parseInt(y));
+        if (D > 0)
+        {       
+            y = y + yi;
+            D = D - 2*dx;
+        }
+        D = D + 2*dy;
+    }
 }
 
 function MA_Algorithm()
