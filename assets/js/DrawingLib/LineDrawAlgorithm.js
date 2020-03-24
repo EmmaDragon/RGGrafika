@@ -5,6 +5,11 @@ const endPointX = document.getElementById("endPointX");
 const endPointY = document.getElementById("endPointY");
 const myCanvas = document.getElementById("myCanvas");
 const algorithm = document.getElementById("selectAlgorithm");
+const width = document.getElementById("width");
+const height = document.getElementById("height");
+
+width.innerHTML+="<strong>"+parseInt(myCanvas.width/4)+"</strong>";
+height.innerHTML+="<strong>"+parseInt(myCanvas.height/4)+"</strong>";
 
 btnGenerate.onclick = (ev) => drawLine(ev);
 DrawCoordSystem();
