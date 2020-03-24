@@ -129,10 +129,12 @@
                                 Pitteway (1967) i Van Aken (1984) su Brasenhamov algoritam unapredili tako da se može uopštiti na proizvoljnu krivu drugog reda.
                                 <br>Posmatrajmo sledeću sliku: 
                                 <img style="margin-left: 30%;" src="../../assets/img/MidpointAlgoritam.png">
-                                <br>Zahtevi o kojima vodimo računa ovde su: 
+								<br>
+								<br>Zahtevi o kojima vodimo računa ovde su: 
                                 <br><strong class="ml-5">a)</strong> 0 < m < 1
                                 <br><strong class="ml-5">b)</strong> (x0,y0) je donja leva tačka, a (x1,y1) gornja desna i potrebno ih je spojiti 
-                                <br>Označili smo piksel sa P(xp,yp) i u narednom koraku pravimo izbor između samo dva piksela označena sa: E i NE. 
+								<br>
+								<br>Označili smo piksel sa P(xp,yp) i u narednom koraku pravimo izbor između samo dva piksela označena sa: E i NE. 
                                 Kod Bresenham-ovog algoritma razmatra se rastojanje tačaka E i NE do presečne tačke prave koju rasterizujemo sa pravom x = xp + 1 i bira se bliže rastojanje, dok kod Midpoint algoritma razmatra se odnos tačke M (središta duži određene tačkama E i NE) 
                                 sa pravom koju rasterizujemo pri čemu ako je M ispod preseka prave koju rasterizujemo sa pravom x = xp + 1 biramo tačku NE, a inače tačku E. 
                                 Glavni problem sa kojim se ovde susrećemo je kako proveriti da li se tačka M nalazi iznad ili ispod date prave korišćenjem celobrojne aritmetike. 
@@ -151,9 +153,9 @@
                                 <br>Vrednost F(x,y) jednaka je 0 za tačke na pravoj, pozitivna je za tačke ispod prave, a negativna za tačke iznad prave. Uvešćemo pojam tzv. promenljive odlučivanja, vrednosti:  
                                 <br><span style="margin-left: 50%;">d = F(xp + 1, yp + 1/2 )</span>
                                 <br>na osnovu koje se pravi izbor: 
-                                <br><span style="margin-left: 5%;">d < 0 – biramo E</span>
-                                <br><span style="margin-left: 5%;">d > 0 – biramo NE</span>
-                                <br><span style="margin-left: 5%;">d = 0 – stvar dogovora, npr. biramo E. </span>
+                                <br><span style="margin-left: 50%;">d < 0 – biramo E</span>
+                                <br><span style="margin-left: 50%;">d > 0 – biramo NE</span>
+                                <br><span style="margin-left: 50%;">d = 0 – stvar dogovora, npr. biramo E. </span>
                                 <br>Pitanje koje se postavlja jeste koja je pozicija tačke M i vrednost promenljive d za narednu liniju mreže. Naravno, odgovor zavisi od toga da li smo u prethodnom koraku odabrali piksel E ili NE.
                                 <br>Ukoliko smo u prethodnom koraku odabrali piksel E tada: 
                                 <br><span style="margin-left:35%">dnew = F(xp + 2, yp +1/2) = a*(xp + 2) + b*(yp + 1/2) + c =</span>
