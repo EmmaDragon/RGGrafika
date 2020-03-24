@@ -24,7 +24,7 @@ function drawLine(ev)
                 else if(algorithm.value == "BA")
                         BA_Algorithm(startPointX.valueAsNumber,startPointY.valueAsNumber,endPointX.valueAsNumber,endPointY.valueAsNumber);
                         else if(algorithm.value == "MA")
-                                MA_Algorithm();
+                                MA_Algorithm(startPointX.valueAsNumber,startPointY.valueAsNumber,endPointX.valueAsNumber,endPointY.valueAsNumber);
 
     }
 }
@@ -35,7 +35,6 @@ function validation()
     else
         return false;
 }
-
 function NA_Algorithm(x0,y0,x1,y1)
 {
     let dx, dy, m, y, b;
@@ -66,7 +65,6 @@ function NA_Algorithm(x0,y0,x1,y1)
     } 
    
 }
-
 function IA_Algorithm(x0,y0,x1,y1)
 {
     let dx, dy, m, y, b;
@@ -98,7 +96,6 @@ function IA_Algorithm(x0,y0,x1,y1)
     } 
     
 }
-
 function BA_Algorithm(x0,y0,x1,y1)
 {
     if(x0==x1)
@@ -136,6 +133,25 @@ function PlotLineVertical(x0,y0,y1)
     } 
 
 }
+function PlotLineHorizontal(x0,x1,y0)
+{
+    let xstart,xend;
+    if(x0<x1)
+    {
+        xstart=x0;
+        xend=x1;
+    }
+    else
+    {
+        xstart=x1;
+        xend=x0;
+    }
+    for (xstart; xstart <= xend; xstart++)   
+    {      
+        WritePixel(xstart, y0);   
+    } 
+}
+
 function PlotLineHigh(x0,y0, x1,y1)
 {
     let dx = x1 - x0;
@@ -184,10 +200,68 @@ function PlotLineLow(x0,y0, x1,y1)
         D = D + 2*dy;
     }
 }
-
-function MA_Algorithm()
+function PlotLineMidpoint(x0,y0,x1,y1)
 {
-    
+	let	y,x,dy,dx,sx,sy;
+	let	decision,incE,incNE;
+
+	dx = x1 - x0;
+	dy = y1 - y0;
+
+	sx = Math.sign(dx);
+	sy = Math.sign(dy);
+
+	dx = Math.abs(dx);
+	dy = Math.abs(dy);
+
+	if(dy > dx)
+	{	
+		incE = 2 * dx;
+		incNE = 2 * dx - 2 * dy;
+		decision = 2 * dy - dx;
+
+		x = x0;
+		y = y0;
+		do{
+			WritePixel(x, parseInt(y));
+			if(decision <= 0)
+				decision += incE;
+			else{
+				decision += incNE;
+				x += sx;	
+			}
+			y += sy;
+		}while(y != y1);
+    }
+    else
+    {
+		incE = 2 * dy;
+		incNE = 2 * dy - 2 * dx;
+		decision = 2 * dy - dx;
+
+		x = x0;
+		y = y0;
+		do{
+			WritePixel(x,parseInt(y));
+			if(decision <= 0)
+				decision += incE;
+			else{
+				decision += incNE;
+				y += sy;
+			}
+			x += sx;
+		}while(x != x1);
+	}
+}
+function MA_Algorithm(x0,y0,x1,y1)
+{
+    if(x0==x1)
+        PlotLineVertical(x0,y0,y1);
+    else if(y0==y1) 
+        PlotLineHorizontal(x0,x1,y0);
+    else
+        PlotLineMidpoint(x0,y0,x1,y1);
+  
 }
 function WritePixel(x, y)
 {
@@ -220,3 +294,6 @@ function DrawCoordSystem()
     ctx.translate(0, -myCanvas.height/2);
 
 }
+
+
+
