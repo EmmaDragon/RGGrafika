@@ -10,6 +10,7 @@ const height = document.getElementById("height");
 const legend = document.getElementById("legend");
 const colorOfLine = document.getElementById("colorOfLine");
 const btnClearCanvas = document.getElementById("clearCanvas");
+
 let legendOfLine=[0,0,0,0];
 
 width.innerHTML+="<strong>"+parseInt(myCanvas.width/4)+"</strong>";
@@ -18,7 +19,12 @@ height.innerHTML+="<strong>"+parseInt(myCanvas.height/4)+"</strong>";
 btnGenerate.onclick = (ev) => drawLine(ev);
 algorithm.onchange= (ev) => checkColor(ev);
 btnClearCanvas.onclick = (ev) => clearCanvasElement(ev);
+
+
+
 DrawCoordSystem();
+
+
 
 function clearCanvasElement(ev)
 {
@@ -76,7 +82,7 @@ function drawLine(ev)
 {
     if(!validation())
     {
-        alert("Koordinate početne i krajnje tačke moraju biti celi brojevi!");
+        $("#myModal").modal("show");
     }
     else
     {

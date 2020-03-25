@@ -186,6 +186,25 @@
 </div>
 </div>
 </div>
+<div class="modal" tabindex="-1" role="dialog" id="myModal">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" style="color:#48abf7;">Greška</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <p style="font-size: larger;">Koordinate tačaka moraju biti celi brojevi!</p>
+		</div>
+		<div class="modal-footer">
+		 
+		  <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+		</div>
+	  </div>
+	</div>
+  </div>
 </body>
 <script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
 <script src="../../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
@@ -233,4 +252,6 @@
 		$('body, html').animate({scrollTop: pos});
 	});
 </script>
+
+
 </html>
