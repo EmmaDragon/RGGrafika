@@ -7,13 +7,71 @@ const myCanvas = document.getElementById("myCanvas");
 const algorithm = document.getElementById("selectAlgorithm");
 const width = document.getElementById("width");
 const height = document.getElementById("height");
+const legend = document.getElementById("legend");
+const colorOfLine = document.getElementById("colorOfLine");
+const btnClearCanvas = document.getElementById("clearCanvas");
+let legendOfLine=[0,0,0,0];
 
 width.innerHTML+="<strong>"+parseInt(myCanvas.width/4)+"</strong>";
 height.innerHTML+="<strong>"+parseInt(myCanvas.height/4)+"</strong>";
 
 btnGenerate.onclick = (ev) => drawLine(ev);
+algorithm.onchange= (ev) => checkColor(ev);
+btnClearCanvas.onclick = (ev) => clearCanvasElement(ev);
 DrawCoordSystem();
 
+function clearCanvasElement(ev)
+{
+    var context = myCanvas.getContext('2d');
+    context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+    var w = myCanvas.width;
+    myCanvas.width = 1;
+    myCanvas.width = w;
+    DrawCoordSystem();
+}
+function checkColor(ev)
+{
+    if(algorithm.value=="NA")
+    {
+        if(legendOfLine[0]!=0)
+          {
+            colorOfLine.value=legendOfLine[0];
+            colorOfLine.disabled=true;
+          } 
+        else
+            colorOfLine.disabled=false;
+    }
+    else if(algorithm.value=="IA")
+    {
+        if(legendOfLine[1]!=0)
+          {
+            colorOfLine.value=legendOfLine[1];
+            colorOfLine.disabled=true;
+          } 
+        else
+            colorOfLine.disabled=false;
+    }
+    else if(algorithm.value=="BA")
+    {
+        if(legendOfLine[2]!=0)
+          {
+            colorOfLine.value=legendOfLine[2];
+            colorOfLine.disabled=true;
+          } 
+        else
+            colorOfLine.disabled=false;
+    }
+    else if(algorithm.value=="MA")
+    {
+        if(legendOfLine[3]!=0)
+          {
+            colorOfLine.value=legendOfLine[3];
+            colorOfLine.disabled=true;
+          }
+        else
+            colorOfLine.disabled=false; 
+    }
+}
 function drawLine(ev)
 {
     if(!validation())
@@ -32,6 +90,13 @@ function drawLine(ev)
                                 MA_Algorithm(startPointX.valueAsNumber,startPointY.valueAsNumber,endPointX.valueAsNumber,endPointY.valueAsNumber);
 
     }
+}
+function editLegend(algorithm)
+{
+    const el=document.createElement("div");
+    el.style="color:"+colorOfLine.value;
+    el.innerHTML+="<strong>___ "+algorithm+"</strong>";
+    legend.appendChild(el);
 }
 function validation()
 {
@@ -68,7 +133,7 @@ function NA_Algorithm(x0,y0,x1,y1)
         y = m*xend + b;    
         WritePixel(xend, parseInt(y));   
     } 
-   
+    checkColorStatus(0, "Nagibni algoritam");
 }
 function IA_Algorithm(x0,y0,x1,y1)
 {
@@ -98,8 +163,8 @@ function IA_Algorithm(x0,y0,x1,y1)
     {       
         WritePixel(x, parseInt(y)); 
         y += m;   
-    } 
-    
+    }
+    checkColorStatus(1,"Inkrementalni algoritam");
 }
 function BA_Algorithm(x0,y0,x1,y1)
 {
@@ -118,6 +183,7 @@ function BA_Algorithm(x0,y0,x1,y1)
             else
                 PlotLineHigh(x0, y0, x1, y1);  
     }  
+    checkColorStatus(2, "Bresenham-ov algoritam");
 }
 function PlotLineVertical(x0,y0,y1)
 {
@@ -156,7 +222,6 @@ function PlotLineHorizontal(x0,x1,y0)
         WritePixel(xstart, y0);   
     } 
 }
-
 function PlotLineHigh(x0,y0, x1,y1)
 {
     let dx = x1 - x0;
@@ -266,7 +331,18 @@ function MA_Algorithm(x0,y0,x1,y1)
         PlotLineHorizontal(x0,x1,y0);
     else
         PlotLineMidpoint(x0,y0,x1,y1);
+    checkColorStatus(3, "Midpoint algoritam");
   
+}
+function checkColorStatus(index, algorithm)
+{
+    if(legendOfLine[index]==0)
+    {
+        editLegend(algorithm);
+        legendOfLine[index]=colorOfLine.value;
+        colorOfLine.disabled=true;
+    }
+
 }
 function WritePixel(x, y)
 {
@@ -274,9 +350,9 @@ function WritePixel(x, y)
     ctx.beginPath();
     ctx.translate(myCanvas.width/2+(x-1),myCanvas.height/2-(y-1));
     ctx.rect((x-1),-(y-1),2,2);
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = colorOfLine.value;
     ctx.fill();
-    ctx.strokeStyle = 'blue';
+    ctx.strokeStyle = colorOfLine.value;
     ctx.stroke();
     ctx.translate(-myCanvas.width/2-(x-1),-myCanvas.height/2+(y-1));
 }
