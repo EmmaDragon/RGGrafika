@@ -116,13 +116,20 @@ function TA_Algorithm(radius)
 }
 function PA_Algorithm(radius)
 {
+    let x, y, xend;
+    xend = parseInt(radius/Math.sqrt(2)+0.5);
+    for(x=0;x<xend;x++)
+    {
+        y=parseInt(Math.sqrt(radius*radius-x*x)+ 0.5);
+        Write8Pixel(x,y);
+    } 
     
-    checkColorStatus(0, "Polinomni algoritam");
+    checkColorStatus(1, "Polinomni algoritam");
 }
 function BA_Algorithm(radius)
 {
     
-    checkColorStatus(0, "Bresenham-ov algoritam");
+    checkColorStatus(2, "Bresenham-ov algoritam");
 }
 
 function checkColorStatus(index, algorithm)
