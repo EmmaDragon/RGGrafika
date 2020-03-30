@@ -128,7 +128,25 @@ function PA_Algorithm(radius)
 }
 function BA_Algorithm(radius)
 {
-    
+    let x, y, d;
+    x=radius;
+    y=0;
+    d= 3-2*radius;
+    while(x>y)
+    { 
+        Write8Pixel(x,y);
+        if(d<0)
+            d+=4*y+6;
+        else
+        { 
+            d+=4*(y-x)+10;
+            x--;
+        }
+        y++;
+    }
+    if(x==y) 
+        Write8Pixel(x, y);
+
     checkColorStatus(2, "Bresenham-ov algoritam");
 }
 

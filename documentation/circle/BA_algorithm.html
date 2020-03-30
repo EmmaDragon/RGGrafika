@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Bresenham-ov algoritam</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="../../assets/img/logo_elfak_header.jpg" type="image/x-icon"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<script src="../../assets/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Lato:300,400,700,900"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../../assets/css/fonts.min.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="../../assets/css/atlantis.min.css"/>
+	<link href="../assets/styles.css" rel="stylesheet" />
+	<link href="../assets/prism.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header" data-background-color="light-blue2">
+				<button class="navbar-toggler sidenav-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						</span>
+				</button>
+				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+				<div class="nav-toggle">
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="icon-menu"></i>
+					</button>
+				</div>
+			</div>
+			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="light-blue2">
+				<div class="container-fluid">
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+						<li class="nav-item">
+							
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<div class="sidebar sidebar-style-2">
+			<div class="sidebar-background"></div>
+			<div class="sidebar-wrapper scrollbar scrollbar-inner">
+				<div class="sidebar-content">
+					<ul class="nav nav-info">
+						<li class="nav-item active mt-4  align-items-center ">
+							<a href="circle.html">
+								<i class="fas fa-graduation-cap" style="font-size:24px; color:#48abf7"></i>
+								<p>Rasterizacija <br> kružnice</p>
+							</a>
+						</li>
+						
+						<li class="nav-section">
+							<span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+							</span>
+							<h4 class="text-section">Grafičke primitive - kružnica</h4>
+						</li>
+						<li class="nav-item">
+							<a href="../index.html">
+								<span class="letter-icon"><i class='fas fa-home' style='font-size:18px; color:#48abf7;'></i></span>
+								<p>Početna</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="equationOfTheCircle.html">
+								<span class="letter-icon"><i class='fas fa-subscript' style='font-size:18px; color:#48abf7;'></i></span>
+								<p>Jednačina kružnice</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="TA_algorithm.html">
+								<span class="letter-icon" style="color:#48abf7"><strong>TA</strong></span>
+								<p>Trigonometrijski algoritam</p>
+							</a>
+                        </li>
+                        <li class="nav-item">
+							<a href="PA_algorithm.html">
+								<span class="letter-icon" style="color:#48abf7"><strong>PA</strong></span>
+								<p>Polinomni algoritam</p>
+							</a>
+                        </li>
+                        <li class="nav-item">
+							<a href="BA_algorithm.html">
+								<span class="letter-icon" style="color:#48abf7"><strong>BA</strong></span>
+								<p>Bresenham-ov algoritam</p>
+							</a>
+                        </li>
+						<li class="nav-item">
+							<a href="simulator.html">
+								<span class="letter-icon"><i class='fas fa-laptop-code' style='font-size:18px; color:#48abf7'></i></span>
+								<p>Simulator</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="main-panel">
+			<div class="content content-documentation">
+				<div class="container-fluid">
+					<div class="card card-documentation">
+						<div class="card-header bg-info-gradient text-white bubble-shadow">
+							<h4> 
+								<div style="display: flex;">
+								<img src="../../assets/img/ux.svg" class="mr-3" >
+								<div>
+								 <br>
+								  Katedra za računarstvo i informatiku
+								 <br>Tema: Rasterizacija kružnice
+								</div>
+								</div>
+							 </h4>
+							
+						</div>
+						<div class="card-body">
+                            <h4 class="subcontent-title" id="quickstart"><span>Bresenham-ov algoritam</span></h4>
+                            <p style="font-size: large;">
+                                Bresenham-ov algoritam crta svih osam oktanata "istovremeno",
+                                počevši od svakog kardinalnog smera (0°, 90°, 180°, 270°)
+                                 i vrši proširivanje kako bi dostigao najbliži višestruki umnožak od 45° (45°, 135°, 225°, 315°).
+                                 Može da odredi gde treba da se zaustavi, jer kada je x = y, dostigao je 45°.
+                                <br>Razlog korišćenja ovih uglova se može videti i na sledećoj slici:
+                                <img style="margin-left: 35%;" height="30%" width="30%" src="../../assets/img/bresenhamovAlgoritamCircle.png">
+                                <br>Kako y raste, ne dolazi do preskakanja niti ponavljanja ni jedne vrednosti dok se ne dostigne 45°.
+                                Dakle, tokom while petlje, pri čemu se y inkrementira za 1 u svakoj iteraciji, i x dekrementira za 1 tom prilikom, nikada se ne dolazi do prekoračenja jednice. 
+                                <br>Ovo ponašanje se menja kada se dostigne ugao od 45°.
+                            </p>
+                            
+                            <h5>Matematička osnova</h5>
+                            <p style="font-size:large;">
+                            Bresenham-ovalgoritam za crtanje kružnice se svodi na odlučivanje o izboru između dve kandidat-tačke (A i B) između kojih prolazi kružna linija.
+                            <br><img style="margin-left: 30%;" height="40%" width="40%" src="../../assets/img/bresenhamovAlgoritamCircle01.png">
+                            <br>Pretpostavimo da je kružnica prošla kroz tačku <strong>P(x,y)</strong> i da treba odlučiti da li će "proći" kroz <strong>A(x-1,y+1)</strong> ili <strong>B(x,y+1)</strong>.
+                            <br>Ovde ćemo uvesti pojam <strong>kvadratne greške</strong> ( odstupanja u odnosu na geometrijski tačnu kružnicu)u tački K:
+                            <img style="margin-left: 45%;" src="../../assets/img/bresenhamovAlgoritamCircle02.png">
+                            <br>Pri čemu važi:
+                            <br> <strong>1)</strong> e(K)>0, za K izvan kruga; 
+                            <br> <strong>2)</strong> e(K)=0, za K na kružnici;
+                            <br> <strong>3)</strong> e(K)<0, za K unutar kruga.
+                            <br>
+                            <br> Algebarski zbir grešaka je: <strong>d = e(A) + e(B)</strong>.
+                            <br>Ovde usvajamo sledeće:
+                            <br> <strong>1.</strong> A, B unutar kruga (teoretski): e(A)<0, e(B)<0 => d<0, bira se B;
+                            <br> <strong>2.</strong> A,B izvan kruga (teoretski): e(A)>0, e(B)>0 => d>0, bira se A;
+                            <br> <strong>3.</strong> A unutar, B izvan kruga: e(A)<0, e(B)>0
+                                <br> <strong class="ml-5">3.1.</strong> abs(e(A))>abs(e(B)) => d<0, bira se B 
+                                <br> <strong class="ml-5">3.2.</strong> abs(e(A))<abs(e(B)) => d>0, bira se A 
+                            <br>
+                            <br> U početnom koraku imamo da je:
+                            <br><img style="margin-left: 45%;" height="25%" width="25%" src="../../assets/img/bresenhamovAlgoritamCircle03.png">
+                            <br>
+                            <br> U i-tom koraku pak imamo:
+                            <br><img style="margin-left: 45%;" height="60%" width="60%" src="../../assets/img/bresenhamovAlgoritamCircle04.png">
+                            <br>
+                            <br> U i+1 koraku pri čemu je i-tom koraku <strong>d>0</strong> pa smo izabrali tačku <strong>A</strong>:
+                            <br><img style="margin-left: 45%;" height="60%" width="60%" src="../../assets/img/bresenhamovAlgoritamCircle05.png">
+                            <br>
+                            <br> U i+1 koraku pri čemu je i-tom koraku <strong>d<0</strong> pa smo izabrali tačku <strong>B</strong>:
+                            <br><img style="margin-left: 45%;" height="60%" width="60%" src="../../assets/img/bresenhamovAlgoritamCircle06.png">
+                            </p>
+                            <h5>Pseudokod</h5>
+                            <p style="font-size:large;">U polju ispod je dat pseudokod za rasterizaciju kružnice korišćenjem Bresenham-ovog algoritma.
+							</p>
+                            <div class="card" style="overflow: scroll; box-shadow: 5px 10px  #e6e6e6;">
+                            <pre style="font-size:16px;">
+                                1.x=r;
+                                2.y=0;
+                                3.d= 3-2*r;
+                                4.while x>y
+                                5.WritePixel8(x, y, value);
+                                6.if d<0 
+                                7.d+=4*y+6
+                                8.else
+                                9.d+=4*(y-x)+10;
+                                10.x--;
+                                11.endif 
+                                12.y++;
+                                13.end while
+                                14.if x==y 
+                                15.WritePixel8(x, y, value);
+                                16.endif
+                            </pre>
+                            </div>
+                            <h5>Prednosti</h5>
+                            <p style="font-size:large;">
+                                Glavna prednosti Bresenham-ovog algoritma je što se kompletna računica
+                                svodi na <strong>celobrojnu aritmetiku</strong>. Koriste se samo sabiranje, oduzimanje i množenje.
+                            </p>
+							
+
+							
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</div>
+</div>
+</body>
+<script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="../../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="../../assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<script src="../../assets/js/core/popper.min.js"></script>
+<script src="../../assets/js/core/bootstrap.min.js"></script>
+<script src="../../assets/js/plugin/chart.js/chart.min.js"></script>
+<script src="../../assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="../../assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<script type="text/javascript" src="../../assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+<script type="text/javascript" src="../../assets/js/plugin/jqvmap/maps/jquery.vmap.world.js" charset="utf-8"></script>
+<script src="../../assets/js/plugin/chart-circle/circles.min.js"></script>
+<script src="../../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="../../assets/js/atlantis.min.js"></script>
+<script src="../assets/prism.js"></script>
+<script src="../assets/prism-normalize-whitespace.min.js"></script>
+<script type="text/javascript">
+	// Optional
+	Prism.plugins.NormalizeWhitespace.setDefaults({
+		'remove-trailing': true,
+		'remove-indent': true,
+		'left-trim': true,
+		'right-trim': true,
+	});
+	
+	// handle links with @href started with '#' only
+	$(document).on('click', 'a[href^="#"]', function(e) {
+		// target element id
+		var id = $(this).attr('href');
+
+		// target element
+		var $id = $(id);
+		if ($id.length === 0) {
+			return;
+		}
+
+		// prevent standard hash navigation (avoid blinking in IE)
+		e.preventDefault();
+
+		// top position relative to the document
+		var pos = $id.offset().top - 80;
+
+		// animated top scrolling
+		$('body, html').animate({scrollTop: pos});
+	});
+</script>
+</html>
