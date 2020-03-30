@@ -60,14 +60,14 @@
 						<li class="nav-item active mt-4  align-items-center ">
 							<a href="line.html">
 								<i class="fas fa-graduation-cap" style="font-size:24px; color:#48abf7"></i>
-								<p>Rasterizacija <br> prave</p>
+								<p>Rasterizacija <br> kružnice</p>
 							</a>
 						</li>
 						<li class="nav-section">
 							<span class="sidebar-mini-icon">
 								<i class="fa fa-ellipsis-h"></i>
 							</span>
-							<h4 class="text-section">Grafičke primitive - prava</h4>
+							<h4 class="text-section">Grafičke primitive - kružnica</h4>
 						</li>
 						<li class="nav-item">
 							<a href="../index.html">
@@ -76,33 +76,27 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="equationOfTheLine.html">
+							<a href="equationOfTheCircle.html">
 								<span class="letter-icon"><i class='fas fa-subscript' style='font-size:18px; color:#48abf7;'></i></span>
-								<p>Jednačina prave</p>
+								<p>Jednačina kružnice</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="NA_ algorithm.html">
-								<span class="letter-icon" style="color:#48abf7"><strong>NA</strong></span>
-								<p>Nagibni algoritam</p>
+							<a href="TA_ algorithm.html">
+								<span class="letter-icon" style="color:#48abf7"><strong>TA</strong></span>
+								<p>Trigonometrijski algoritam</p>
 							</a>
                         </li>
                         <li class="nav-item">
-							<a href="IA_algorithm.html">
-								<span class="letter-icon" style="color:#48abf7"><strong>IA</strong></span>
-								<p>Inkrementalni algoritam</p>
+							<a href="PA_algorithm.html">
+								<span class="letter-icon" style="color:#48abf7"><strong>PA</strong></span>
+								<p>Polinomni algoritam</p>
 							</a>
                         </li>
                         <li class="nav-item">
 							<a href="BA_algorithm.html">
 								<span class="letter-icon" style="color:#48abf7"><strong>BA</strong></span>
 								<p>Bresenham-ov algoritam</p>
-							</a>
-                        </li>
-                        <li class="nav-item">
-							<a href="MA_algorithm.html">
-								<span class="letter-icon" style="color:#48abf7"><strong>MA</strong></span>
-								<p>Midpoint algoritam</p>
 							</a>
                         </li>
 						<li class="nav-item">
@@ -122,43 +116,30 @@
 						<div class="card-body">
 							<h4 class="subcontent-title" id="quickstart"><span>Simulator</span></h4>
 							<div style="display: flex; flex-direction: row;">
-								<div class="card-body" style="width:50%;">
+								<div class="card-body" style="width: 50%;">
 									<h5>>_Unos parametara</h5>
 									<p style="font-size: larger;">U polju ispod izaberite odgovarajući algoritam:</p>
 									<select class="form-control" id="selectAlgorithm">
-										<option value="NA" selected="true">Nagibni algoritam (NA)</option>
-										<option value="IA">Inkrementalni algoritam (IA)</option>
+										<option value="TA" selected="true">Trigonometrijski algoritam (TA)</option>
+										<option value="PA">Polinomni algoritam (PA)</option>
 										<option value="BA">Bresenham-ov algoritam (BA)</option>
-										<option value="MA">Midpoint algoritam (MA)</option>
 									  </select>
 									  <br>
-									  <p style="font-size: larger;">U poljima ispod unesite koordinate početne i krajnje tačke:
+									 
+                                     <div style="display: flex; flex-direction: row;">
+										<p style="font-size: larger;" class="mr-2 mt-2">>_Poluprečnik kružnice:</p> 
+										<input type="number" style="width:25%; " class="form-control " id="radius" >
+										</div>
 									  <br>
-									  <br>>_Početna tačka:
-									  <div style="display: flex; flex-direction: row;">
-									  <label class="mr-2"><strong>x - coord</strong></label>
-									  <input type="number" class="form-control mr-5" id="startPointX">
-									  <label class="mr-2"><strong>y - coord</strong></label>
-									  <input type="number" class="form-control" id="startPointY">
-									 </div> 
-									  <br>
-									  <br> <p style="font-size: larger;">>_Kranja tačka:</p> 
 										<div style="display: flex; flex-direction: row;">
-										<label class="mr-2"><strong>x - coord</strong></label>
-										<input type="number" class="form-control mr-5" id="endPointX">
-										<label class="mr-2"><strong>y - coord</strong></label>
-										<input type="number" class="form-control" id="endPointY">
-										</div> 
-										<br>
-										<div style="display: flex; flex-direction: row;">
-										<p style="font-size: larger;" class="mr-2">>_Boja prave:</p> 
-										<input type="color" id="colorOfLine" class="mt-1">
+										<p style="font-size: larger;" class="mr-2">>_Boja kružnice:</p> 
+										<input type="color" id="colorOfCircle" class="mt-1">
 										</div>
 										<p>Obratiti pažnju na veličinu canvas elemnta za iscrtavanje!
 										<br>Ukoliko koordinate prevazilaze dimenzije canvas-a
-										neki delovi prave neće biti vidljivi.
-										<br>Zbog preglednosti boja za određeni algoritam se bira jednom, a ukoliko želite prikaz sa drugim bojama - osvežite stranicu. 
-									</p>
+                                        neki delovi kružnice neće biti vidljivi.
+                                        <br>Zbog preglednosti boja za određeni algoritam se bira jednom, a ukoliko želite prikaz sa drugim bojama - osvežite stranicu. 
+                                        </p>
 										<button type="button" class="btn btn-primary " style="float:right; font-size: 16px;" id="generate"><strong>Generiši</strong></button>
 									</p>
 								</div>
@@ -198,7 +179,7 @@
 		  </button>
 		</div>
 		<div class="modal-body">
-		  <p style="font-size: larger;">Koordinate tačaka moraju biti celi brojevi!</p>
+		  <p style="font-size: larger;">Poluprečnik mora biti celi brojevi!</p>
 		</div>
 		<div class="modal-footer">
 		 
@@ -207,6 +188,8 @@
 	  </div>
 	</div>
   </div>
+
+ 
 </body>
 <script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
 <script src="../../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
@@ -223,7 +206,7 @@
 <script src="../../assets/js/atlantis.min.js"></script>
 <script src="../assets/prism.js"></script>
 <script src="../assets/prism-normalize-whitespace.min.js"></script>
-<script src="../../assets/js/DrawingLib/LineDrawAlgorithm.js"></script>
+<script src="../../assets/js/DrawingLib/CircleDrawAlgorithm.js"></script>
 <script type="text/javascript">
 	// Optional
 	Prism.plugins.NormalizeWhitespace.setDefaults({
