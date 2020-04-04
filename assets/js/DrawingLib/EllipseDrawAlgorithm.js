@@ -130,19 +130,169 @@ function TA_Algorithm(a, b)
     
     checkColorStatus(0, "Trigonometrijski algoritam");
 }
-function PA_Algorithm(radius)
+function PA_Algorithm(a, b)
 {
+    let x; 
+    let y,a2;
+    a2=a*a; 
+    for(x=0; x<a; x++)
+    { 
+        y=parseInt(b*Math.sqrt(1-x*x/a2)+0.5); 
+        Write4Pixel(x,y);
+    }
+    checkColorStatus(1, "Polinomni algoritam");
     
 }
-function DA1_Algorithm(radius)
+function DA1_Algorithm(a, b)
 {
+    let ba,ab,x0,x1,y0,y1;
+    let Dphi;
+    Dphi=PI/180.0; 
+    ba=Dphi*b/a; 
+    ab=Dphi*a/b; 
+    x0=a; 
+    y0=0; 
+    for (let j=0; j<90;j++)
+    { 
+        x1=x0-ab*y0; 
+        y1=y0+ba*x0; 
+        BresenhamLine(x0,y0,x1,y1);
+        BresenhamLine(-x0,y0,-x1,y1); 
+        BresenhamLine(x0,-y0,x1,-y1); 
+        BresenhamLine(-x0,-y0,-x1,-y1); 
+        x0=x1; y0=y1; 
+    }
+    checkColorStatus(2, "Diferencijalni algoritam I reda");
     
 }
-function DA2_Algorithm(radius)
+function DA2_Algorithm(a, b)
 {
+    let x0,x1,y0,y1,k; 
+    k=PI/180.0; 
+    x0=a; 
+    y0=0; 
+    x1=a*Math.cos(k); 
+    y1=b*Math.sin(k); 
+    k=2-k*k;
+    for(let j=0; j<90;j++)
+    { 
+        BresenhamLine(x0,y0,x1,y1);
+        BresenhamLine(-x0,y0,-x1,y1);
+        BresenhamLine(x0,-y0,x1,-y1);
+        BresenhamLine(-x0,-y0,-x1,-y1);
+        let tmp_x=x0;
+        let tmp_y=y0;
+        x0=x1;
+        y0=y1;
+        x1=k*x1-tmp_x;
+        y1=k*y1-tmp_y;
+    }
+    checkColorStatus(3, "Diferencijalni algoritam II reda"); 
+}
+function BresenhamLine(x0,y0,x1,y1)
+{
+    if(x0==x1)
+        PlotLineVertical(x0,y0,y1);
+    else
+    {
+        if (Math.abs(y1 - y0) < Math.abs(x1 - x0))
+            if (x0 > x1)
+                PlotLineLow(x1, y1, x0, y0);
+            else
+                PlotLineLow(x0, y0, x1, y1);
+        else
+            if (y0 > y1)
+                PlotLineHigh(x1, y1, x0, y0);
+            else
+                PlotLineHigh(x0, y0, x1, y1);  
+    }  
     
 }
+function PlotLineVertical(x0,y0,y1)
+{
+    let ystart,yend;
+    if(y0<y1)
+    {
+        ystart=y0;
+        yend=y1;
+    }
+    else
+    {
+        ystart=y1;
+        yend=y0;
+    }
+    for (ystart; ystart <= yend; ystart++)   
+    {      
+        WritePixel(x0, ystart);   
+    } 
 
+}
+function PlotLineHorizontal(x0,x1,y0)
+{
+    let xstart,xend;
+    if(x0<x1)
+    {
+        xstart=x0;
+        xend=x1;
+    }
+    else
+    {
+        xstart=x1;
+        xend=x0;
+    }
+    for (xstart; xstart <= xend; xstart++)   
+    {      
+        WritePixel(xstart, y0);   
+    } 
+}
+function PlotLineHigh(x0,y0, x1,y1)
+{
+    let dx = x1 - x0;
+    let dy = y1 - y0;
+    let xi = 1;
+    if (dx < 0)
+    {    
+        xi = -1;
+        dx = -dx;
+    }
+    let D = 2*dx - dy;
+    let x = x0;
+
+    for (let y=y0; y<=y1; y++)
+    {   
+        WritePixel(x, parseInt(y));
+        if (D > 0)
+        {      
+            x = x + xi;
+            D = D - 2*dy;
+        }
+        D = D + 2*dx;
+    }
+}
+function PlotLineLow(x0,y0, x1,y1)
+{   let dx = x1 - x0;
+    let dy = y1 - y0;
+    let yi = 1
+    if (dy < 0)
+    {
+        yi = -1
+        dy = -dy
+    }
+    
+    let D = 2*dy - dx
+    let y = y0
+
+    for(x=x0; x<=x1;x++)
+    {
+        WritePixel(x,parseInt(y));
+        if (D > 0)
+        {       
+            y = y + yi;
+            D = D - 2*dx;
+        }
+        D = D + 2*dy;
+    }
+}
 function checkColorStatus(index, algorithm)
 {
     if(legendOfEllipse[index]==0)
