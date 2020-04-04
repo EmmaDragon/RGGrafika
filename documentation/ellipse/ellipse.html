@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Rasterizacija elipse</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="../../assets/img/logo_elfak_header.jpg" type="image/x-icon"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<script src="../../assets/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Lato:300,400,700,900"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../../assets/css/fonts.min.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="../../assets/css/atlantis.min.css"/>
+	<link href="../assets/styles.css" rel="stylesheet" />
+	<link href="../assets/prism.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header" data-background-color="light-blue2">
+				<button class="navbar-toggler sidenav-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						</span>
+				</button>
+				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+				<div class="nav-toggle">
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="icon-menu"></i>
+					</button>
+				</div>
+			</div>
+			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="light-blue2">
+				<div class="container-fluid">
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+						<li class="nav-item">
+							
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<div class="sidebar sidebar-style-2">
+			<div class="sidebar-background"></div>
+			<div class="sidebar-wrapper scrollbar scrollbar-inner">
+				<div class="sidebar-content">
+					<ul class="nav nav-info">
+						<li class="nav-item active mt-4  align-items-center ">
+							<a href="ellipse.html">
+								<i class="fas fa-graduation-cap" style="font-size:24px; color:#48abf7"></i>
+								<p>Rasterizacija <br> elipse</p>
+							</a>
+						</li>
+						
+						<li class="nav-section">
+							<span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+							</span>
+							<h4 class="text-section">Grafičke primitive - elipsa</h4>
+						</li>
+						<li class="nav-item">
+							<a href="../index.html">
+								<span class="letter-icon"><i class='fas fa-home' style='font-size:18px; color:#48abf7;'></i></span>
+								<p>Početna</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="equationOfTheEllipse.html">
+								<span class="letter-icon"><i class='fas fa-subscript' style='font-size:18px; color:#48abf7;'></i></span>
+								<p>Jednačina elipse</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="TA_algorithm.html">
+								<span class="letter-icon" style="color:#48abf7"><strong>TA</strong></span>
+								<p>Trigonometrijski algoritam</p>
+							</a>
+                        </li>
+                        <li class="nav-item">
+							<a href="PA_algorithm.html">
+								<span class="letter-icon" style="color:#48abf7"><strong>PA</strong></span>
+								<p>Polinomni algoritam</p>
+							</a>
+                        </li>
+                        <li class="nav-item">
+							<a href="DAI_algorithm.html">
+								<span class="letter-icon mr-3" style="color:#48abf7"><strong>DA1</strong></span>
+								<p>Diferencijalni algoritam I </p>
+							</a>
+                        </li>
+                        <li class="nav-item">
+							<a href="DAII_algorithm.html">
+								<span class="letter-icon mr-3" style="color:#48abf7"><strong>DA2 </strong></span>
+								<p>Diferencijalni algoritam II</p>
+							</a>
+                        </li>
+						<li class="nav-item">
+							<a href="simulator.html">
+								<span class="letter-icon"><i class='fas fa-laptop-code' style='font-size:18px; color:#48abf7'></i></span>
+								<p>Simulator</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="main-panel">
+			<div class="content content-documentation">
+				<div class="container-fluid">
+					<div class="card card-documentation">
+						<div class="card-header bg-info-gradient text-white bubble-shadow">
+							<h4> 
+								<div style="display: flex;">
+								<img src="../../assets/img/ux.svg" class="mr-3" >
+								<div>
+								 <br>
+								  Katedra za računarstvo i informatiku
+								 <br>Tema: Rasterizacija elipse
+								</div>
+								</div>
+							 </h4>
+							
+						</div>
+						<div class="card-body">
+							<h4 class="subcontent-title" id="quickstart"><span>Rasterizacija elipse</span></h4>
+                            <p style="font-size:large;">Slično kao i za linije, rasterizacija elipse treba da ispuni sledeće zahteve:
+
+                                <br> <strong class="ml-5">*</strong> Niz piksela treba da bude što približniji idealnoj elipsi;
+                                <br> <strong class="ml-5">*</strong> Nacrtana elipsa treba da bude ,,neprekidna“;
+                                <br> <strong class="ml-5">*</strong> Crtanje treba da bude što je moguće brže.
+                                <br>
+                                <br>U okviru ove teme obradićemo sledeće algoritme za rasterizaciju elipse: 
+                               
+                                <br> <strong class="ml-5">1.</strong> Trigonometrijski algoritam (TA)
+                                <br> <strong class="ml-5">2.</strong> Polinomni algoritam (PA) 
+                                <br> <strong class="ml-5">3.</strong> Diferencijalni algoritam I reda (DA_I)
+                                <br> <strong class="ml-5">4.</strong> Diferencijalni algoritam II reda (DA_II)
+                              
+                            </p>
+							
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</div>
+</div>
+</body>
+<script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="../../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="../../assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<script src="../../assets/js/core/popper.min.js"></script>
+<script src="../../assets/js/core/bootstrap.min.js"></script>
+<script src="../../assets/js/plugin/chart.js/chart.min.js"></script>
+<script src="../../assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="../../assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<script type="text/javascript" src="../../assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+<script type="text/javascript" src="../../assets/js/plugin/jqvmap/maps/jquery.vmap.world.js" charset="utf-8"></script>
+<script src="../../assets/js/plugin/chart-circle/circles.min.js"></script>
+<script src="../../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="../../assets/js/atlantis.min.js"></script>
+<script src="../assets/prism.js"></script>
+<script src="../assets/prism-normalize-whitespace.min.js"></script>
+<script type="text/javascript">
+	// Optional
+	Prism.plugins.NormalizeWhitespace.setDefaults({
+		'remove-trailing': true,
+		'remove-indent': true,
+		'left-trim': true,
+		'right-trim': true,
+	});
+	
+	// handle links with @href started with '#' only
+	$(document).on('click', 'a[href^="#"]', function(e) {
+		// target element id
+		var id = $(this).attr('href');
+
+		// target element
+		var $id = $(id);
+		if ($id.length === 0) {
+			return;
+		}
+
+		// prevent standard hash navigation (avoid blinking in IE)
+		e.preventDefault();
+
+		// top position relative to the document
+		var pos = $id.offset().top - 80;
+
+		// animated top scrolling
+		$('body, html').animate({scrollTop: pos});
+	});
+</script>
+</html>
