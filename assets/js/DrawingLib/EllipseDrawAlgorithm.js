@@ -14,7 +14,7 @@ let legendOfEllipse=[0,0,0,0];
 width.innerHTML+="<strong>"+parseInt(myCanvas.width/4)+"</strong>";
 height.innerHTML+="<strong>"+parseInt(myCanvas.height/4)+"</strong>";
 
-btnGenerate.onclick = (ev) => drawLine(ev);
+btnGenerate.onclick = (ev) => drawEllipse(ev);
 algorithm.onchange= (ev) => checkColor(ev);
 btnClearCanvas.onclick = (ev) => clearCanvasElement(ev);
 
@@ -79,7 +79,7 @@ function checkColor(ev)
     }
     
 }
-function drawLine(ev)
+function drawEllipse(ev)
 {
     if(!validation())
     {
